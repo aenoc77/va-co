@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VA & CO | Dashboard de Lanzamiento Dark Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-blue: #0A2E50;
+            --aqua-teal: #4ECDC4;
+            --coral-soft: #F27D52;
+            --warm-bg: #FDFBF9;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-bg);
+            color: #1f2937;
+        }
+        h1, h2, h3, h4, .font-montserrat { 
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+            height: 280px;
+        }
+        .gradient-line {
+            background: linear-gradient(to right, var(--ocean-blue), var(--aqua-teal));
+            height: 4px;
+            border-radius: 2px;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0A2E50;
+            border-radius: 4px;
+        }
+        /* Hotspot pulsation effect */
+        .pulse-ring {
+            border: 3px solid var(--aqua-teal);
+            border-radius: 50%;
+            animation: pulsate 1.8s ease-out infinite;
+            opacity: 0;
+        }
+        @keyframes pulsate {
+            0% { transform: scale(0.1, 0.1); opacity: 0.0; }
+            50% { opacity: 1.0; }
+            100% { transform: scale(1.2, 1.2); opacity: 0.0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="bg-white/95 sticky top-0 z-50 backdrop-blur-md border-b border-[#0A2E50]/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Brand Official Logo (3_3.png) integrated with Crisp White background blending -->
+                <div class="flex items-center">
+                    <img src="3_3.png" alt="VA & CO - Pescadería Playa Verde" class="h-16 w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x200/0A2E50/4ECDC4?text=VA+%26+CO';">
+                </div>
+                <!-- Navigation links matching brand guidelines -->
+                <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest text-[#0A2E50]">
+                    <a href="#vision" class="hover:text-[#4ECDC4] transition-colors">Visión General</a>
+                    <a href="#roadmap" class="hover:text-[#4ECDC4] transition-colors">Ruta de Lanzamiento</a>
+                    <a href="#campanas" class="hover:text-[#4ECDC4] transition-colors">Campañas Ads</a>
+                    <a href="#operaciones" class="hover:text-[#4ECDC4] transition-colors">La Zona Estéril</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header id="vision" class="py-12 px-6 max-w-7xl mx-auto text-center border-b border-gray-100">
+        <span class="text-[#4ECDC4] font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Planificación y Estrategia 2026</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-[#0A2E50] mb-6 leading-tight">
+            Transición al Modelo <br> 
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0A2E50] to-[#4ECDC4]">Dark Store Digital 2026</span>
+        </h1>
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative">
+            <div class="absolute -top-3 left-6 bg-[#0A2E50] text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                Premisa Estratégica
+            </div>
+            <p class="text-gray-600 text-base md:text-lg font-light leading-relaxed italic">
+                "La visión de cerrar el mostrador físico tradicional y dar el salto audaz al modelo digital nació directamente de la Dirección General, liderada por Jean Valero. Nuestra misión como Dirección Estratégica es diseñar e implementar la infraestructura tecnológica, logística y comercial para blindar y multiplicar el éxito de esta gran decisión."
+            </p>
+            <div class="mt-4 flex items-center justify-center gap-2">
+                <span class="text-xs font-bold text-[#0A2E50]">Jean Valero</span>
+                <span class="text-xs text-gray-400">| Director General (Iniciador)</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 mt-12 space-y-12">
+
+        <section id="roadmap" class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-50">
+            <div class="p-8 md:p-12">
+                <div class="border-b border-gray-100 pb-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-[#0A2E50]">I. Hoja de Ruta Crítica para el Lanzamiento</h2>
+                        <p class="text-gray-500 text-sm mt-1">Cronograma de despliegue coordinado para la transición suave de mostrador a Dark Store.</p>
+                    </div>
+                    <span class="self-start md:self-center bg-[#4ECDC4]/10 text-[#0A2E50] text-xs font-bold px-3 py-1.5 rounded-full border border-[#4ECDC4]/30">
+                        ⏱️ Horizonte de Ejecución: 30 Días
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Timeline Left Navigation -->
+                    <div class="lg:col-span-4 space-y-3">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Fases de Trabajo</h3>
+                        
+                        <button onclick="switchPhase(1)" id="btn-fase1" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 transition duration-300 border-l-4 border-l-[#4ECDC4]">
+                            <span class="text-[10px] text-[#4ECDC4] block font-bold uppercase">Día 1 al 10</span>
+                            <span class="font-bold text-sm text-[#0A2E50]">Fase 1: Infraestructura y Adecuaciones</span>
+                        </button>
+
+                        <button onclick="switchPhase(2)" id="btn-fase2" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition duration-300">
+                            <span class="text-[10px] text-gray-400 block font-bold uppercase">Día 11 al 20</span>
+                            <span class="font-bold text-sm text-[#0A2E50]">Fase 2: Integración Digital y CRM</span>
+                        </button>
+
+                        <button onclick="switchPhase(3)" id="btn-fase3" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition duration-300">
+                            <span class="text-[10px] text-gray-400 block font-bold uppercase">Día 21 al 25</span>
+                            <span class="font-bold text-sm text-[#0A2E50]">Fase 3: Contenidos 4K y Pruebas</span>
+                        </button>
+
+                        <button onclick="switchPhase(4)" id="btn-fase4" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition duration-300">
+                            <span class="text-[10px] text-gray-400 block font-bold uppercase">Día 26 al 30</span>
+                            <span class="font-bold text-sm text-[#0A2E50]">Fase 4: Disparo y Apertura B2C/B2B</span>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Information Panel -->
+                    <div class="lg:col-span-8 bg-[#0A2E50] rounded-2xl p-6 md:p-8 text-white flex flex-col justify-between relative overflow-hidden">
+                        <div id="phase-content" class="relative z-10 space-y-4">
+                            <span class="text-[#4ECDC4] font-bold text-xs uppercase tracking-widest block" id="p-tag">Fase 1 (Días 1-10)</span>
+                            <h3 class="text-2xl font-extrabold" id="p-title">Adecuación Física y Maquinaria Tecnológica</h3>
+                            <div class="gradient-line my-4"></div>
+                            <p class="text-sm text-blue-100 leading-relaxed" id="p-desc">
+                                Reestructuración del local para albergar la "Zona Estéril" (The Cold Lab). Instalación de mesas de acero inoxidable, bacha profunda y la selladora industrial al vacío. Adquisición del hardware operativo (Edición 4K y Chromebook para el local).
+                            </p>
+                            
+                            <!-- Key deliverables list -->
+                            <div class="pt-4 space-y-3" id="p-deliverables">
+                                <h4 class="text-xs font-bold text-[#4ECDC4] uppercase tracking-wider">Entregables Clave:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                                        <span class="text-[#4ECDC4]">✓</span> Construcción de la mesa de acero con tabla negra HDPE.
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                                        <span class="text-[#4ECDC4]">✓</span> Adquisición de Chromebook para control físico de CRM.
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                                        <span class="text-[#4ECDC4]">✓</span> Despliegue de cortinas de PVC y cajas térmicas para motos.
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                                        <span class="text-[#4ECDC4]">✓</span> Soporte magnético de cuchillería y brazo fotográfico fijado.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-[#4ECDC4] rounded-full opacity-10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="campanas" class="bg-white rounded-3xl p-8 md:p-12 border border-gray-50 shadow-xl shadow-gray-200/50">
+            <div class="border-b border-gray-100 pb-6 mb-8">
+                <span class="bg-[#F27D52] text-white text-[9px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">Estrategia de Tráfico</span>
+                <h2 class="text-2xl font-extrabold text-[#0A2E50] mt-3">II. Propuesta de Campañas Publicitarias (Tráfico Ads)</h2>
+                <p class="text-gray-500 text-sm mt-1">Nuestra máquina digital no depende de la suerte; está calibrada para tres audiencias específicas con ganchos de alta conversión.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Campaigns Cards Stack -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Campaña B2C: Premium Delivery -->
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 relative overflow-hidden group hover:border-[#4ECDC4]/50 transition duration-300">
+                        <div class="absolute top-0 right-0 bg-[#4ECDC4] text-[#0A2E50] text-[9px] font-bold px-3 py-1 rounded-bl-xl uppercase">B2C Local</div>
+                        <h3 class="font-extrabold text-base text-[#0A2E50] flex items-center gap-2">
+                            <span>🛵</span> Campaña "Primer Delivery Premium Gratis"
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            Diseñada para romper la barrera de desconfianza al comprar mariscos y pescados de forma digital en Catia La Mar y zonas de alto target. Un video cinematográfico 4K resalta la frescura del producto sobre la tabla negra y ofrece la entrega de cortesía en su primera orden.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2 text-[10px] font-bold uppercase">
+                            <span class="bg-white px-2.5 py-1 rounded border text-[#0A2E50]">Canal: Instagram/FB Ads</span>
+                            <span class="bg-white px-2.5 py-1 rounded border text-[#F27D52]">Gancho: Delivery Gratis</span>
+                        </div>
+                    </div>
+
+                    <!-- Campaña B2B: Alianzas Gastronómicas -->
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 relative overflow-hidden group hover:border-[#4ECDC4]/50 transition duration-300">
+                        <div class="absolute top-0 right-0 bg-[#0A2E50] text-white text-[9px] font-bold px-3 py-1 rounded-bl-xl uppercase">B2B Mayorista</div>
+                        <h3 class="font-extrabold text-base text-[#0A2E50] flex items-center gap-2">
+                            <span>👨‍🍳</span> Campaña "Kit de Muestras para Alta Cocina"
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            Prospección dirigida exclusivamente a Chefs Ejecutivos y dueños de restaurantes en La Guaira. Ofrecemos el envío gratuito de 5 Kits de Muestra con lomos de atún o salmón perfectamente curados y sellados al vacío, abriendo un canal de distribución comercial confiable y de alta frecuencia.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2 text-[10px] font-bold uppercase">
+                            <span class="bg-white px-2.5 py-1 rounded border text-[#0A2E50]">Canal: LinkedIn / WhatsApp Direct</span>
+                            <span class="bg-white px-2.5 py-1 rounded border text-[#4ECDC4]">Gancho: Kit Curaduría Gratis</span>
+                        </div>
+                    </div>
+
+                    <!-- Campaña Orgánica: El Secreto del Vacío -->
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 relative overflow-hidden group hover:border-[#4ECDC4]/50 transition duration-300">
+                        <div class="absolute top-0 right-0 bg-[#F27D52] text-white text-[9px] font-bold px-3 py-1 rounded-bl-xl uppercase">Contenido de Valor</div>
+                        <h3 class="font-extrabold text-base text-[#0A2E50] flex items-center gap-2">
+                            <span>🎬</span> Campaña "Transparencia Total" (Reels 4K)
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            Videos cortos mostrando los procesos higiénicos del Maestro Pescadero cortando sobre la tabla de HDPE negra, el proceso de sellado, y el protocolo fotográfico enviado por WhatsApp al cliente. Genera confianza, posiciona la marca y alimenta el tráfico orgánico sin presupuesto extra.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2 text-[10px] font-bold uppercase">
+                            <span class="bg-white px-2.5 py-1 rounded border text-[#0A2E50]">Canal: Instagram Reels / TikTok</span>
+                            <span class="bg-white px-2.5 py-1 rounded border text-gray-500">Gancho: Higiene Quirúrgica</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Campaign Budget Distribution & Projections -->
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                        <h4 class="text-center text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">Distribución del Presupuesto de Ads (Mes 1)</h4>
+                        <div class="chart-container" style="height: 220px;">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                        <p class="text-center text-[10px] text-gray-400 mt-2 italic">Presupuesto inicial enfocado en posicionamiento y captación rápida.</p>
+                    </div>
+
+                    <div class="bg-[#0A2E50] text-white p-6 rounded-2xl">
+                        <h4 class="text-sm font-bold text-[#4ECDC4] uppercase tracking-wider mb-2">Metas Mensuales de Conversión</h4>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Nuestra meta en el primer mes de campañas automatizadas busca estabilizar un flujo diario de consultas en el WhatsApp de ventas.
+                        </p>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>Prospectos Calificados (Mensuales)</span>
+                                    <span class="font-bold text-[#4ECDC4]">300 Conversaciones</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-[#4ECDC4] h-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>Nuevos Clientes (Fidelizados)</span>
+                                    <span class="font-bold text-[#F27D52]">60 Órdenes B2C</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-[#F27D52] h-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="operaciones" class="bg-white rounded-3xl p-8 md:p-12 border border-gray-50 shadow-xl shadow-gray-200/50">
+            <div class="border-b border-gray-100 pb-6 mb-8">
+                <span class="bg-[#0A2E50] text-white text-[9px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">Flujo Físico</span>
+                <h2 class="text-2xl font-extrabold text-[#0A2E50] mt-3">III. Arquitectura de la "Zona Estéril" (The Cold Lab)</h2>
+                <p class="text-gray-500 text-sm mt-1">Haga clic en las estaciones de la izquierda o en los puntos de interacción de la imagen para inspeccionar la logística de flujo lineal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Interactive Flow Buttons (Left side: 4 cols) -->
+                <div class="lg:col-span-4 space-y-4">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Estaciones de Trabajo</h3>
+                    
+                    <button onclick="switchStation('estacion1')" id="btn-estacion1" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 transition duration-300 border-l-4 border-l-[#4ECDC4]">
+                        <span class="text-[10px] text-gray-400 block font-bold uppercase">Estación 1</span>
+                        <span class="font-bold text-sm text-[#0A2E50]">Curaduría y Desposte</span>
+                        <p class="text-xs text-gray-500 mt-1">Mesa inox, tabla negra de corte HDPE (Contraste visual en videos) y bacha profunda.</p>
+                    </button>
+
+                    <button onclick="switchStation('estacion2')" id="btn-estacion2" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition duration-300">
+                        <span class="text-[10px] text-gray-400 block font-bold uppercase">Estación 2</span>
+                        <span class="font-bold text-sm text-[#0A2E50]">La Zona de Sellado</span>
+                        <p class="text-xs text-gray-500 mt-1">Selladora industrial al vacío con brazo de pared fijo para toma de "Foto 1" obligatoria.</p>
+                    </button>
+
+                    <button onclick="switchStation('estacion3')" id="btn-estacion3" class="w-full text-left p-4 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition duration-300">
+                        <span class="text-[10px] text-gray-400 block font-bold uppercase">Estación 3</span>
+                        <span class="font-bold text-sm text-[#0A2E50]">Ensamblaje y Despacho</span>
+                        <p class="text-xs text-gray-500 mt-1">Congelador con hielo cristalino, cavas térmicas blancas y blindaje de cortina de lamas de PVC.</p>
+                    </button>
+                </div>
+
+                <!-- Central Visualizer & Hotspot Render (Right side: 8 cols) -->
+                <div class="lg:col-span-8 space-y-6">
+                    <!-- Render container with absolute pulsing hotspots -->
+                    <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-[#0A2E50]">
+                        <img src="watermarked_img_1242735409961314938.png" alt="Render Zona Estéril VA & CO" class="w-full h-auto object-cover opacity-90 block">
+                        
+                        <!-- Pulsing Hotspot: Estación 1 (Operator cutting salmon) -->
+                        <div id="hotspot-estacion1" onclick="switchStation('estacion1')" class="absolute cursor-pointer group" style="top: 55%; left: 18%; transform: translate(-50%, -50%);">
+                            <span class="absolute inline-flex h-8 w-8 rounded-full bg-[#4ECDC4] opacity-75 pulse-ring"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-[#4ECDC4] border-2 border-white items-center justify-center font-bold text-[#0A2E50] text-xs shadow-md transition-transform duration-300 group-hover:scale-125">1</span>
+                        </div>
+
+                        <!-- Pulsing Hotspot: Estación 2 (Vacuum Sealer machine) -->
+                        <div id="hotspot-estacion2" onclick="switchStation('estacion2')" class="absolute cursor-pointer group" style="top: 50%; left: 46%; transform: translate(-50%, -50%);">
+                            <span class="absolute inline-flex h-8 w-8 rounded-full bg-[#4ECDC4] opacity-75 pulse-ring"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-[#4ECDC4] border-2 border-white items-center justify-center font-bold text-[#0A2E50] text-xs shadow-md transition-transform duration-300 group-hover:scale-125">2</span>
+                        </div>
+
+                        <!-- Pulsing Hotspot: Estación 3 (Packaging & delivery cavas) -->
+                        <div id="hotspot-estacion3" onclick="switchStation('estacion3')" class="absolute cursor-pointer group" style="top: 72%; left: 78%; transform: translate(-50%, -50%);">
+                            <span class="absolute inline-flex h-8 w-8 rounded-full bg-[#4ECDC4] opacity-75 pulse-ring"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-[#4ECDC4] border-2 border-white items-center justify-center font-bold text-[#0A2E50] text-xs shadow-md transition-transform duration-300 group-hover:scale-125">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Technical description card below the render -->
+                    <div class="bg-[#0A2E50] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
+                        <div id="visualizer-content" class="relative z-10 space-y-4">
+                            <span class="text-[#4ECDC4] font-bold text-xs uppercase tracking-widest block" id="v-badge">Estación Destacada</span>
+                            <h3 class="text-2xl font-extrabold" id="v-title">Estación 1: Curaduría y Desposte</h3>
+                            <div class="gradient-line my-4"></div>
+                            <p class="text-sm text-blue-100 leading-relaxed" id="v-desc">
+                                Esta estación es la "zona cinematográfica" del local. Diseñada con una mesa de acero inoxidable 304 de alta resistencia y una tabla de polietileno de alta densidad (HDPE) de color NEGRO que resalta dramáticamente la coloración roja del atún y el naranja del salmón en los videos y fotos para Instagram.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-4" id="v-specs">
+                                <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                                    <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Higiene</span>
+                                    <span class="text-xs">Bacha de lavado profundo</span>
+                                </div>
+                                <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                                    <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Estética</span>
+                                    <span class="text-xs">Soporte magnético para cuchillos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 border border-gray-100">
+            <div class="flex-1 space-y-4">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Protocolo de Confianza</span>
+                <h2 class="text-2xl font-extrabold text-[#0A2E50]">Transparencia Total de Cara al Cliente</h2>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Para romper la barrera de desconfianza de comprar pescado en formato digital, el operario debe enviar obligatoriamente dos capturas desde el brazo fotográfico de la estación:
+                </p>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-[#4ECDC4]"></div>
+                        <p class="text-xs font-semibold text-[#0A2E50]">Foto 1: El lomo crudo limpio sobre la tabla de corte negra de HDPE.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-[#4ECDC4]"></div>
+                        <p class="text-xs font-semibold text-[#0A2E50]">Foto 2: El producto sellado al vacío montado sobre el hielo en la cava blanca con el sticker.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Interactive mockup representator using the real render as visual validation -->
+            <div class="w-full md:w-80 overflow-hidden bg-white rounded-2xl shadow-md border border-gray-200 flex flex-col">
+                <div class="p-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">📷 Validación por WhatsApp</span>
+                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+                <img src="watermarked_img_1242735409961314938.png" alt="Validación Operativa" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <p class="text-[10px] uppercase font-black tracking-widest text-[#0A2E50]">Estándar Quirúrgico</p>
+                    <p class="text-[9px] text-gray-400 mt-1">El cliente recibe las fotos en tiempo real antes de que la moto abandone la Dark Store.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#0A2E50] text-white py-12 px-6 border-t-4 border-[#4ECDC4]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <!-- Brand block containing official white-bordered brand logo image -->
+            <div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                <div class="bg-white p-2 rounded-xl inline-block">
+                    <img src="3_3.png" alt="VA & CO" class="h-14 w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffffff/0A2E50?text=VA+%26+CO';">
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl tracking-tight text-[#4ECDC4]">VA & CO</h3>
+                    <p class="text-gray-300 text-[10px] tracking-widest uppercase">Estrategia de Transición Dark Store 2026</p>
+                </div>
+            </div>
+            <div class="text-xs text-gray-400 text-center md:text-right">
+                <p>Propiedad Intelectual de la Dirección Estratégica.</p>
+                <p class="mt-1">Catia La Mar, La Guaira, Venezuela.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Roadmap Phase Selector
+        const phases = {
+            1: {
+                tag: "Fase 1 (Días 1-10)",
+                title: "Adecuación Física y Maquinaria Tecnológica",
+                desc: "Reestructuración del local para albergar la \"Zona Estéril\" (The Cold Lab). Instalación de mesas de acero inoxidable, bacha profunda y la selladora industrial al vacío. Adquisición del hardware operativo (Edición 4K y Chromebook para el local).",
+                deliverables: `
+                    <h4 class="text-xs font-bold text-[#4ECDC4] uppercase tracking-wider">Entregables Clave:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Construcción de la mesa de acero con tabla negra HDPE.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Adquisición de Chromebook para control físico de CRM.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Despliegue de cortinas de PVC y cajas térmicas para motos.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Soporte magnético de cuchillería y brazo fotográfico fijado.
+                        </div>
+                    </div>
+                `
+            },
+            2: {
+                tag: "Fase 2 (Días 11-20)",
+                title: "Integración Digital y Embudo de Conversión",
+                desc: "Despliegue tecnológico del ecosistema digital de ventas. Instalación y configuración de Kommo CRM para que funcione como la única \"Fuente de la Verdad\". Parametrización del bot de respuestas automáticas en Instagram para calificar y rebotar al WhatsApp operativo.",
+                deliverables: `
+                    <h4 class="text-xs font-bold text-[#4ECDC4] uppercase tracking-wider">Entregables Clave:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Vinculación de Instagram y WhatsApp Business con Kommo CRM.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Programación del bot calificador de leads VIP.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Creación de plantillas de respuesta rápida para el operador del local.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Capacitación técnica del operador en el uso del CRM.
+                        </div>
+                    </div>
+                `
+            },
+            3: {
+                tag: "Fase 3 (Días 21-25)",
+                title: "Contenidos Cinematográficos y Pruebas Reales",
+                desc: "Grabación del contenido comercial de alto impacto con cámara 4K usando la tabla negra y las luces de acento a 45 grados. Realización de pruebas logísticas ciegas para medir los tiempos de la cadena de frío de las motos y el protocolo fotográfico.",
+                deliverables: `
+                    <h4 class="text-xs font-bold text-[#4ECDC4] uppercase tracking-wider">Entregables Clave:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Producción de 5 videos comerciales premium en resolución 4K.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Grabación de tomas orgánicas del maestro pescadero cortando.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> 3 simulacros de despacho con fotos reales enviadas de prueba.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Control de temperatura del producto en destino (cero mermas).
+                        </div>
+                    </div>
+                `
+            },
+            4: {
+                tag: "Fase 4 (Días 26-30)",
+                title: "Arranque de Ads de Lanzamiento y Distribución",
+                desc: "Encendido oficial de las campañas de tráfico pago (B2C y B2B). Activación de la oferta Lead Magnet de Delivery Premium Gratis. Entrega física de los flyers informativos a los clientes tradicionales y envío de los Kits de Muestra a los chefs clave de La Guaira.",
+                deliverables: `
+                    <h4 class="text-xs font-bold text-[#4ECDC4] uppercase tracking-wider">Entregables Clave:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Lanzamiento de Ads para Instagram y Facebook dirigidos al público premium.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Distribución de 5 Kits de Muestra B2B con atún y salmón al vacío.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Lanzamiento del flyer impreso de educación digital en el local.
+                        </div>
+                        <div class="flex items-center gap-2 text-xs bg-white/5 p-2 rounded border border-white/10">
+                            <span class="text-[#4ECDC4]">✓</span> Auditoría en vivo de los primeros prospectos en Kommo CRM.
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function switchPhase(phaseNum) {
+            // Update active buttons UI
+            [1, 2, 3, 4].forEach(num => {
+                const btn = document.getElementById(`btn-fase${num}`);
+                if (num === phaseNum) {
+                    btn.classList.add('bg-gray-100', 'border-l-4', 'border-l-[#4ECDC4]');
+                    btn.classList.remove('bg-white');
+                } else {
+                    btn.classList.remove('bg-gray-100', 'border-l-4', 'border-l-[#4ECDC4]');
+                    btn.classList.add('bg-white');
+                }
+            });
+
+            // Update content inside visualizer
+            const data = phases[phaseNum];
+            document.getElementById('p-tag').innerText = data.tag;
+            document.getElementById('p-title').innerText = data.title;
+            document.getElementById('p-desc').innerText = data.desc;
+            document.getElementById('p-deliverables').innerHTML = data.deliverables;
+        }
+
+        // Chart.js installation for Traffic Budget allocation
+        const ctxBudget = document.getElementById('budgetChart').getContext('2d');
+        const budgetChart = new Chart(ctxBudget, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ads Delivery Gratis (B2C)', 'Kits de Muestra (B2B)', 'Remarketing & Branding'],
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: ['#4ECDC4', '#0A2E50', '#F27D52'],
+                    hoverOffset: 10,
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 10,
+                            font: { size: 10, family: 'Inter' },
+                            usePointStyle: true
+                        }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+
+        // Interactive Station Selector Content Mapping
+        const stations = {
+            estacion1: {
+                title: 'Estación 1: Curaduría y Desposte',
+                desc: 'Esta estación es la "zona cinematográfica" del local. Diseñada con una mesa de acero inoxidable 304 de alta resistencia y una tabla de polietileno de alta densidad (HDPE) de color NEGRO que resalta dramáticamente la coloración roja del atún y el naranja del salmón en los videos y fotos para Instagram.',
+                specs: `
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Higiene</span>
+                        <span class="text-xs">Bacha de lavado profundo</span>
+                    </div>
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Estética</span>
+                        <span class="text-xs">Soporte magnético para cuchillos</span>
+                    </div>
+                `
+            },
+            estacion2: {
+                title: 'Estación 2: La Zona de Sellado (El Quirófano)',
+                desc: 'Un escalón de acero de 2 cm aísla esta mesa para evitar que cualquier rastro de agua o humedad interfiera con el termosellado de las bolsas. Aquí se ubica la selladora industrial al vacío y un brazo mecánico de pared fijo (Punto Selfie) ajustado para fotografiar la proteína en su máxima frescura antes del sellado.',
+                specs: `
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Operación</span>
+                        <span class="text-xs">Brazo fotográfico móvil</span>
+                    </div>
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Insumo</span>
+                        <span class="text-xs">Dispensador rollos de bolsas</span>
+                    </div>
+                `
+            },
+            estacion3: {
+                title: 'Estación 3: Ensamblaje y Despacho',
+                desc: 'La estación final y más limpia del flujo. Aquí se colocan los lomos al vacío en las cavas térmicas blancas de lujo con abundante hielo cristalino y la pegatina corporativa de la marca. Esta área se aísla de la calle con una cortina de lamas de PVC azul oscuro para impedir la pérdida de temperatura y regular el acceso.',
+                specs: `
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Blindaje</span>
+                        <span class="text-xs">Cortina térmica de lamas PVC</span>
+                    </div>
+                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                        <span class="block text-[10px] uppercase text-[#4ECDC4] font-bold">Experiencia</span>
+                        <span class="text-xs">Kit de etiquetas VA & CO</span>
+                    </div>
+                `
+            }
+        };
+
+        function switchStation(stationId) {
+            // Update active state in buttons
+            ['estacion1', 'estacion2', 'estacion3'].forEach(id => {
+                const btn = document.getElementById(`btn-${id}`);
+                const hotspot = document.getElementById(`hotspot-${id}`);
+                
+                if (id === stationId) {
+                    btn.classList.add('bg-gray-100', 'border-l-4', 'border-l-[#4ECDC4]');
+                    btn.classList.remove('bg-white');
+                    // Highlight the respective hotspot on the render
+                    hotspot.querySelector('span:last-child').classList.add('scale-125', 'bg-white', 'text-[#0A2E50]');
+                    hotspot.querySelector('span:last-child').classList.remove('bg-[#4ECDC4]', 'text-white');
+                } else {
+                    btn.classList.remove('bg-gray-100', 'border-l-4', 'border-l-[#4ECDC4]');
+                    btn.classList.add('bg-white');
+                    // Reset styling on non-active hotspots
+                    hotspot.querySelector('span:last-child').classList.remove('scale-125', 'bg-white', 'text-[#0A2E50]');
+                    hotspot.querySelector('span:last-child').classList.add('bg-[#4ECDC4]', 'text-white');
+                }
+            });
+
+            // Update content inside visualizer
+            const data = stations[stationId];
+            document.getElementById('v-title').innerText = data.title;
+            document.getElementById('v-desc').innerText = data.desc;
+            document.getElementById('v-specs').innerHTML = data.specs;
+        }
+
+        // Initialize active state on station 1
+        window.onload = function() {
+            switchStation('estacion1');
+        }
+    </script>
+</body>
+</html>
